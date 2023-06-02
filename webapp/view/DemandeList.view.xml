@@ -1,7 +1,7 @@
 <mvc:View controllerName="comep.comep.controller.DemandeList"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
+    <Page id="page" title="Liste des demandes">
         <content />
     </Page>
 </mvc:View>
