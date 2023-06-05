@@ -29,10 +29,10 @@
 				    class="sapUiSizeCompact stickyToolbar sapUiNoContentPadding">
 					<m:columns class=" sapUiSizeCompact stickyToolbar">
 						<m:Column id="demandeID" minScreenWidth="" >
-                            <m:Label text="{i18n>demande}" tooltip="{i18n>demande}"/>
+                            <m:Label text="{i18n>Demande}" tooltip="{i18n>demande}"/>
 						</m:Column>
                         <m:Column id="demDescr" minScreenWidth="" >                         
-							<m:Label text="{i18n>description}" tooltip="{i18n>description}"/>                      
+							<m:Label text="{i18n>Description}" tooltip="{i18n>description}"/>                      
 						</m:Column>
                        
                         </m:columns>
