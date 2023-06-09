@@ -55,7 +55,8 @@
         "sap.ui.comp": {},
         "sap.ui.generic.app": {},
         "sap.ui.table": {},
-        "sap.ushell": {}
+        "sap.ushell": {},
+        "sap.ui.layout": {}
       }
     },
     "contentDensities": {
@@ -88,16 +89,24 @@
         "viewType": "XML",
         "async": true,
         "viewPath": "comep.comep.view",
-        "controlAggregation": "pages",
         "controlId": "app",
-        "clearControlAggregation": false
+        "viewLevel": 1
       },
       "routes": [
         {
           "name": "RouteDemandeList",
-          "pattern": ":?query:",
+          "pattern": "",
           "target": [
             "TargetDemandeList"
+          ],
+          "layout": "OneColumn"
+        },
+        {
+          "pattern": "DemandeDetail/{dem_descr}",
+          "name": "DemandeDetail",
+          "target": [
+            "TargetDemandeList",
+            "TargetDemandeDetail"
           ]
         }
       ],
@@ -105,9 +114,16 @@
         "TargetDemandeList": {
           "viewType": "XML",
           "transition": "slide",
-          "clearControlAggregation": false,
           "viewId": "DemandeList",
-          "viewName": "DemandeList"
+          "viewName": "DemandeList",
+          "controlAggregation": "pages"
+        },
+        "TargetDemandeDetail": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "DetailDemande",
+          "viewName": "DetailDemande",
+          "controlAggregation": "pages"
         }
       }
     },

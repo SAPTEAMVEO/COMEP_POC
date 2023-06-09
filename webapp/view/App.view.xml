@@ -1,7 +1,27 @@
-<mvc:View controllerName="comep.comep.controller.App"
+<mvc:View xmlns:f="sap.f" controllerName="comep.comep.controller.App"
     xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
+    xmlns="sap.m"   height="100%">
     <App id="app">
-    </App>
+    
+    </App> 
+<!--      
+   <FlexibleColumnLayout id="app">
+
+    <beginColumnPages>
+		<mvc:XMLView id="idbeginView" viewName="comep.comep.view.DemandeList"/>
+	</beginColumnPages>
+
+    <midColumnPages>
+        <mvc:XMLView  id="idmidView" viewName="comep.comep.view.DetailDemande"/>
+    </midColumnPages>
+
+    <endColumnPages>
+        <mvc:XMLView  id="idendView" />
+    </endColumnPages> 
+	</FlexibleColumnLayout>
+     -->
+
 </mvc:View>
+
+

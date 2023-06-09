@@ -1,0 +1,53 @@
+<mvc:View controllerName="comep.comep.controller.DetailDemande" 
+          xmlns:core="sap.ui.core" 
+          
+          xmlns:layout="sap.ui.layout"
+	      xmlns:mvc="sap.ui.core.mvc" 
+          xmlns:m="sap.m"     
+          xmlns:suite="sap.suite.ui.commons"
+          xmlns:f="sap.f" class="sapUiNoContentPadding sapUiSizeCompact" height="100%">
+<f:DynamicPage showFooter="false" id="DetailDemandePage" class="sapUiSizeCompact" >
+<f:title>
+	<f:DynamicPageTitle id = 'detaildemandedynamicpage' backgroundDesign="Solid">
+		<f:heading>
+			<m:Title id ='detaildemande' text="Detail Demande" wrapping="true" class="sapUiTinyMarginEnd sapUiTinyMarginTop"/>
+		</f:heading>
+		<f:actions>
+		
+			<m:Button id="btnClose" icon="sap-icon://decline" press="onNavBack" tooltip=" {i18n>close}" type="Transparent"/>
+		</f:actions>
+	</f:DynamicPageTitle>
+</f:title>
+</f:DynamicPage>
+<!-- <ObjectPageLayout id="DetailDemandePage" alwaysShowContentHeader="true" class="sapUiSizeCompact" upperCaseAnchorBar="false">
+		<headerTitle >
+			<ObjectPageHeader id = "DetailDemandeHeader"
+				objectTitle= "Detail Demande "
+				isObjectIconAlwaysVisible="false" 
+				isObjectTitleAlwaysVisible="true" 
+				isObjectSubtitleAlwaysVisible="false" 
+				isActionAreaAlwaysVisible="true"
+				showPlaceholder="false">
+				<actions>
+		            
+					<ObjectPageHeaderActionButton id="declineBtn" icon="sap-icon://decline" press="onNavBack" tooltip="close"/>
+				</actions>
+			</ObjectPageHeader>
+		</headerTitle>
+		<headerContent 	>
+		<m:Text id='testid' text="tessst"></m:Text>
+		</headerContent>
+
+		<sections>
+			<ObjectPageSection id="docuSection" title="tesssssssst" titleUppercase="false" class="sapUiSizeCompact">
+				<subSections >
+				<ObjectPageSubSection id="docuSectionSS1" mode="Expanded" titleUppercase="false" visible="false">
+
+				</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+		</ObjectPageLayout> -->
+
+
+</mvc:View>

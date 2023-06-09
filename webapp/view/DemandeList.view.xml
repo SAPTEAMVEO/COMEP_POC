@@ -4,44 +4,39 @@
 	xmlns:u="sap.ui.unified"
 	xmlns:c="sap.ui.core"
 	xmlns:m="sap.m"
+	 xmlns:suite="sap.suite.ui.commons"
     xmlns:layout="sap.ui.layout"
     xmlns:f="sap.f">
 
     <f:DynamicPage showFooter="false" id="ObjectPageLayout" headerExpanded="true" class="sapUiSizeCompact sapUiNoContentPadding">
-<f:title>
+        <f:title>
 			<f:DynamicPageTitle id ="DynamicPageTitle" backgroundDesign="Transparent">
 				<f:heading>
-					<m:Title id="idtitle" text="{i18n>Title}" tooltip="{i18n>Title}"/>
+					<m:Title id="idtitle" text="{i18n>title}" tooltip="{i18n>title}"/>
 				</f:heading>
 				
 			</f:DynamicPageTitle>
 		</f:title>
-        <f:header>
-			<f:DynamicPageHeader pinnable="true"  id="idHeader">
-				<f:content >
-					
-				</f:content>
-			</f:DynamicPageHeader>
-		</f:header>
+      
         <f:content >
         <m:Table id="idTable" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" growing="true" growingThreshold="10" growingScrollToLoad="true"
 					busyIndicatorDelay="30" width="100%" items="{path:'/demandeSet'}" updateFinished="onUpdateFinished"
 				    class="sapUiSizeCompact stickyToolbar sapUiNoContentPadding">
-					<m:columns class=" sapUiSizeCompact stickyToolbar">
+					<m:columns>
 						<m:Column id="demandeID" minScreenWidth="" >
-                            <m:Label text="{i18n>Demande}" tooltip="{i18n>demande}"/>
+                            <m:Label id ='demande' text="{i18n>demande}" tooltip="{i18n>demande}"/>
 						</m:Column>
                         <m:Column id="demDescr" minScreenWidth="" >                         
-							<m:Label text="{i18n>Description}" tooltip="{i18n>description}"/>                      
+							<m:Label id ='description' text="{i18n>description}" tooltip="{i18n>description}"/>                      
 						</m:Column>
                        
                         </m:columns>
-					<m:items  class=" sapUiSizeCompact">
-						<m:ColumnListItem type="Navigation" press="onDemandePress" selected="true" >
+					<m:items  >
+						<m:ColumnListItem id = "detaildemande" type="Navigation" press="onDemandePress" selected="true" >
 							<m:cells>
                             <!-- <m:ObjectIdentifier Id ='ObjectIdentifier' title="{dem_code}"  /> -->
-                            <m:Text  text="{dem_descr}"  />
-                            <m:Text  text="{dem_code}"  />
+                            <m:Text id='dem_descr' text="{dem_descr}"  />
+                            <m:Text  id='dem_code' text="{dem_code}"  />
 															                                
                                 </m:cells>
 						</m:ColumnListItem>
