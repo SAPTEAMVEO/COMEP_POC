@@ -12,7 +12,7 @@ sap.ui.define([
 
         return Controller.extend("comep.comep.controller.DemandeList", {
             onInit: function () {
-               
+
                 var i18nModel = new ResourceModel({
                     bundleName: "comep.comep.i18n.i18n"
                 });
@@ -22,7 +22,6 @@ sap.ui.define([
                 this.oTable = this.getView().byId("idTable");
                 this.getView().setModel(this.oModel);
                 this.oTable.setModel(this.oModel);
-
             },
             onDemandePress: function (oEvent) {
 

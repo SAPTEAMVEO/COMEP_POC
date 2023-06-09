@@ -17,7 +17,7 @@
 			<m:Button id="btnClose" icon="sap-icon://decline" press="onNavBack" tooltip=" {i18n>close}" type="Transparent"/>
 		</f:actions>
 	</f:DynamicPageTitle>
-</f:title>
+</f:title> 
 </f:DynamicPage>
 <!-- <ObjectPageLayout id="DetailDemandePage" alwaysShowContentHeader="true" class="sapUiSizeCompact" upperCaseAnchorBar="false">
 		<headerTitle >

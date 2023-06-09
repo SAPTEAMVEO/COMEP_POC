@@ -131,7 +131,7 @@
       "viewName": "comep.comep.view.App",
       "type": "XML",
       "async": true,
-      "id": "App"
+      "id": "App" 
     }
   }
 }

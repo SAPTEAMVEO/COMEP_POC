@@ -15,7 +15,6 @@ sap.ui.define([
                 oRouter.getRoute("DemandeDetail").attachMatched(this._onObjectMatched, this);
                 // oRouter.getRoute("DemandeDetail").attachPatternMatched(this._onSupplierMatched, this);
 
-
             },
             _onObjectMatched: function (oEvent) {
                 this.demandeId = oEvent.getParameter("arguments").dem_descr;

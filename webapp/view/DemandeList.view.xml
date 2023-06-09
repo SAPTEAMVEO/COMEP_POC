@@ -13,11 +13,10 @@
 			<f:DynamicPageTitle id ="DynamicPageTitle" backgroundDesign="Transparent">
 				<f:heading>
 					<m:Title id="idtitle" text="{i18n>title}" tooltip="{i18n>title}"/>
-				</f:heading>
-				
+				</f:heading>		
 			</f:DynamicPageTitle>
 		</f:title>
-      
+    
         <f:content >
         <m:Table id="idTable" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" growing="true" growingThreshold="10" growingScrollToLoad="true"
 					busyIndicatorDelay="30" width="100%" items="{path:'/demandeSet'}" updateFinished="onUpdateFinished"
