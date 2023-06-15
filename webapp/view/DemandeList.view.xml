@@ -1,4 +1,4 @@
-<mvc:View xmlns:filterbar="sap.ui.comp.filterbar" controllerName="comep.comep.controller.DemandeList"
+<mvc:View  controllerName="comep.comep.controller.DemandeList"
     xmlns="sap.ui.table"
     xmlns:mvc="sap.ui.core.mvc"
 	xmlns:u="sap.ui.unified"
@@ -6,7 +6,10 @@
 	xmlns:m="sap.m"
 	 xmlns:suite="sap.suite.ui.commons"
     xmlns:layout="sap.ui.layout"
-    xmlns:f="sap.f">
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:svm="sap.ui.comp.smartvariants"
+	>
 
     <f:DynamicPage showFooter="false" id="ObjectPageLayout" headerExpanded="true" class="sapUiSizeCompact sapUiNoContentPadding">
         <f:title>
@@ -16,10 +19,31 @@
 				</f:heading>		
 			</f:DynamicPageTitle>
 		</f:title>
-    
+<f:header>
+<f:DynamicPageHeader id="dynamic" >
+	<f:content>
+		<fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search="onSearch" filterChange="onFilterChange" afterVariantLoad="onAfterVariantLoad">
+			<fb:filterGroupItems>
+				<fb:FilterGroupItem  id = "FilterDemande" name="Demande" label="Demande"  groupName="Group1" visibleInFilterBar="true">
+					<fb:control>
+						<m:MultiInput id= "demandeInputId" valueHelpRequest="onDemandeValueHelp" tokenUpdate="onChange"></m:MultiInput>
+					</fb:control>
+			    </fb:FilterGroupItem>
+
+				<fb:FilterGroupItem  id = "Filtercombo" name="Statut" label="Statut" groupName="Group1" visibleInFilterBar="true">
+				    <fb:control>
+						<m:ComboBox id= "combo"></m:ComboBox>
+					</fb:control>
+				</fb:FilterGroupItem>
+				
+			</fb:filterGroupItems>
+		</fb:FilterBar>
+	</f:content>
+</f:DynamicPageHeader>
+</f:header>
         <f:content >
         <m:Table id="idTable" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" growing="true" growingThreshold="10" growingScrollToLoad="true"
-					busyIndicatorDelay="30" width="100%" items="{path:'/demandeSet'}" updateFinished="onUpdateFinished"
+					busyIndicatorDelay="30" width="100%" items="{path:'/DemandeSet'}" updateFinished="onUpdateFinished"
 				    class="sapUiSizeCompact stickyToolbar sapUiNoContentPadding">
 					<m:columns>
 						<m:Column id="demandeID" minScreenWidth="" >
@@ -28,19 +52,30 @@
                         <m:Column id="demDescr" minScreenWidth="" >                         
 							<m:Label id ='description' text="{i18n>description}" tooltip="{i18n>description}"/>                      
 						</m:Column>
-                       
+                       <m:Column id="statutID" minScreenWidth="" >                         
+							<m:Label id ='statut' text="{i18n>statut}" tooltip="{i18n>statut}"/>                      
+						</m:Column>
+						<m:Column id="date_creatioID" minScreenWidth="" >                         
+							<m:Label id ='date_creation' text="{i18n>date_creation}" tooltip="{i18n>date_creation}"/>                      
+						</m:Column>
+						<m:Column id="responsableID" minScreenWidth="" >                         
+							<m:Label id ='responsable' text="{i18n>responsable}" tooltip="{i18n>responsable}"/>                      
+						</m:Column>
                         </m:columns>
 					<m:items  >
 						<m:ColumnListItem id = "detaildemande" type="Navigation" press="onDemandePress" selected="true" >
-							<m:cells>
-                            <!-- <m:ObjectIdentifier Id ='ObjectIdentifier' title="{dem_code}"  /> -->
-                            <m:Text id='dem_descr' text="{dem_descr}"  />
-                            <m:Text  id='dem_code' text="{dem_code}"  />
-															                                
-                                </m:cells>
-						</m:ColumnListItem>
+						<m:cells>
+                            <m:ObjectIdentifier id = 'iden' title="{DemCode}"  />
+                            <m:Text  id='dem_descr' text="{DemDescr}"  />
+                            <!-- <m:Text  id='dem_code' text="{DemCode}"  /> -->
+					        <m:Text  id='dem_statut'  text="{DemStatut}"/>  
+							<m:Text  id='dem_date_creation' text="{path: 'DemDateCrea' , formatter: '.formatter.getDate'}"  />
+							<m:Text  id='dem_responsable' text="{DemResponsable}" />             
+					 	</m:cells>	
+					 	</m:ColumnListItem>
 					</m:items>
-				</m:Table>
+				</m:Table>                 
+                          
         </f:content>
     </f:DynamicPage>
 </mvc:View>

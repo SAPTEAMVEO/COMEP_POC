@@ -16,7 +16,7 @@
       "toolsId": "1c14fcf8-6ecd-47c5-b7f7-8e15b5ca275a"
     },
     "dataSources": {
-      "mainService": {
+      "ZCOMEP_POC_SRV": {
         "uri": "/sap/opu/odata/sap/ZCOMEP_POC_SRV/",
         "type": "OData",
         "settings": {
@@ -70,10 +70,11 @@
           "bundleName": "comep.comep.i18n.i18n"
         }
       },
-      "": {
-        "dataSource": "mainService",
-        "preload": true,
-        "settings": {}
+      "ZCOMEP_POC_SRV": {
+        "dataSource": "ZCOMEP_POC_SRV",
+        "settings": {
+          "defaultCountMode": "Inline"
+        }
       }
     },
     "resources": {
@@ -102,7 +103,7 @@
           "layout": "OneColumn"
         },
         {
-          "pattern": "DemandeDetail/{dem_descr}",
+          "pattern": "DemandeDetail/{DemCode}",
           "name": "DemandeDetail",
           "target": [
             "TargetDemandeList",
@@ -131,7 +132,7 @@
       "viewName": "comep.comep.view.App",
       "type": "XML",
       "async": true,
-      "id": "App" 
+      "id": "App"
     }
   }
 }

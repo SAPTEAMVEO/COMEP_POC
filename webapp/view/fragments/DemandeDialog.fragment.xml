@@ -1,0 +1,5 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:vhd="sap.ui.comp.valuehelpdialog" xmlns:fb="sap.ui.comp.filterbar">
+	<vhd:ValueHelpDialog id="demandeValueHelp" supportRangesOnly="false" supportRanges="true" cancel="onCancel" ok="onConfirm"
+		selectionChange="onSelectionChange" key="DemCode" descriptionKey="DemDescr" title="Demandes" tokenDisplayBehaviour=""  
+		class="sapUiSizeCompact"></vhd:ValueHelpDialog>
+</core:FragmentDefinition>
