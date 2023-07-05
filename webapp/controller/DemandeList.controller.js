@@ -181,7 +181,6 @@ sap.ui.define([
                 // this.oTable.setBusy(true);
                 this.getView().setBusy(true);
 
-
                 this._getInputFilters("demandeInputId", 'Code');
                 this._getInputFilters("itBusSevInputId", 'ItBusService');
                 var oTemplate = this._createTemplate();
@@ -219,8 +218,20 @@ sap.ui.define([
 
                         }),
                         new sap.m.ObjectAttribute({
+                            text: "{ItBusService}"
+
+                        }),
+                        new sap.m.ObjectAttribute({
+                            text: "{Solution}"
+
+                        }),
+                        new sap.m.ObjectAttribute({
+                            text: "{Nature"
+
+                        }),
+                        new sap.m.ObjectAttribute({
                             text: {
-                                path: "StatuS",
+                                path: "Status",
                                 formatter: formatter.getStatusText
                             },
 
