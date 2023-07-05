@@ -103,7 +103,7 @@
           "layout": "OneColumn"
         },
         {
-          "pattern": "DemandeDetail/{DemCode}",
+          "pattern": "DemandeDetail/{Code}",
           "name": "DemandeDetail",
           "target": [
             "TargetDemandeList",

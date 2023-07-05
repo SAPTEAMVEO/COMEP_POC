@@ -9,7 +9,7 @@ sap.ui.define([
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, ResourceModel, Device, Filter, FilterOperator,formatter) {
+    function (Controller, ResourceModel, Device, Filter, FilterOperator, formatter) {
         "use strict";
 
 
@@ -26,6 +26,7 @@ sap.ui.define([
                 this.getView().setModel(this.oModel);
                 this.oTable.setModel(this.oModel);
                 this.Filters = [];
+                this._initializeComboBox();
             },
             onDemandePress: function (oEvent) {
 
@@ -41,19 +42,8 @@ sap.ui.define([
             },
             _showDetail: function (oItem) {
                 var bReplace = !Device.system.phone;
-                // var eventData = {
-                //     showReportPopup: this.showReportPopup
-                // };
-
-                // var PatternName = this.oRouter._oRouter._prevMatchedRequest.split("/");
-
-                // // if (this.oRouter._oRouter._prevBypassedRequest === "") {
-
-                // if (PatternName[0] === "RouteDemandeList") {
-
                 this.oRouter.navTo("DemandeDetail", {
-
-                    DemCode: oItem.getBindingContext().getProperty("DemCode")
+                    Code: oItem.getBindingContext().getProperty("Code")
                 }, bReplace);
 
 
@@ -82,10 +72,10 @@ sap.ui.define([
                 oColModel.setData({
                     cols: [{
                         label: this.oBundle.getText("demande"),
-                        template: "DemCode"
+                        template: "Code"
                     }, {
                         label: this.oBundle.getText("description"),
-                        template: "DemDescr"
+                        template: "Description"
                     }]
                 });
 
@@ -93,7 +83,7 @@ sap.ui.define([
                 oTable.setModel(oColModel, "columns");
                 var oInput = this.getView().byId("demandeInputId");
                 var oModel = this.getOwnerComponent().getModel("ZCOMEP_POC_SRV");
-                oModel.read("/DemandeSet", {
+                oModel.read("/DEMANDESet", {
                     success: function (oData) {
                         var oModelRows = new sap.ui.model.json.JSONModel();
                         oModelRows.setData({
@@ -120,8 +110,12 @@ sap.ui.define([
                     case "demandeValueHelp":
                         inputValue = "demandeInputId";
                         keyValue = "Demande";
-                        filterValue = "DemCode";
+                        filterValue = "Code";
                         break;
+                        case "itBusServValueHelp":
+                        inputValue = "itBusSevInputId";
+                        keyValue = "ItBusService";
+                        filterValue = "ItBusService";
 
                 }
                 oInput = this.getView().byId(inputValue);
@@ -155,12 +149,27 @@ sap.ui.define([
                                 i--;
                             }
                         }
-                    }
+                    
+                    }else if (oSourceId.includes('itBusSevInputId')) {
+						skey = oEvent.getParameter("removedTokens")[0].getProperty("key");
+                        sName = oEvent.getParameter("removedTokens")[0].getProperty("text");
+                         aTokens = this.oView.byId('itBusSevInputId').getTokens();
+                        for (var i = 0; i < aTokens.length; i++) {
+                            if ((this.Filters[i].oValue1 === skey)) {
+                                // remove filter from filters list
+                                this.Filters.splice(i, 1);
+                                aTokens.splice(i, 1);
+                                i--;
+                            }
+                        }
+					}
+                    
+                    
 
                 }
                 var oTemplate = this._createTemplate();
                 this.oTable.bindItems({
-                    path: "/DemandeSet",
+                    path: "/DEMANDESet",
                     template: oTemplate,
                     filters: this.Filters,
                 });
@@ -169,17 +178,19 @@ sap.ui.define([
 
             },
             onSearch: function () {
-                this.oTable.setBusy(true);
+                // this.oTable.setBusy(true);
+                this.getView().setBusy(true);
 
-                this._getInputFilters("demandeInputId", 'DemCode');
 
+                this._getInputFilters("demandeInputId", 'Code');
+                this._getInputFilters("itBusSevInputId", 'ItBusService');
                 var oTemplate = this._createTemplate();
                 this.oTable.bindItems({
-                    path: "/DemandeSet",
+                    path: "/DEMANDESet",
                     template: oTemplate,
                     filters: this.Filters,
                 });
-                this.oTable.setBusy(false);
+                this.getView().setBusy(false);
             },
             _getInputFilters: function (sInput, sFilterName) {
 
@@ -201,26 +212,123 @@ sap.ui.define([
 
                     cells: [
                         new sap.m.ObjectIdentifier({
-                            title: "{DemCode}"
+                            title: "{Code}"
                         }),
                         new sap.m.ObjectAttribute({
-                            text: "{DemDescr}"
+                            text: "{Description}"
 
                         }),
                         new sap.m.ObjectAttribute({
-                            text: "{DemStatut}"
+                            text: {
+                                path: "StatuS",
+                                formatter: formatter.getStatusText
+                            },
+
 
                         }),
                         new sap.m.ObjectAttribute({
-                            text: "{DemDateCrea}"
+                            text: {
+                                path: "CreationDate",
+                                formatter: formatter.getDate
+                            },
+
 
                         }),
                         new sap.m.ObjectAttribute({
-                            text: "{DemResponsable}"
+                            text: "{Responsible}"
 
                         })
                     ]
                 });
+            },
+            _initializeComboBox: function () {
+
+                var oComboBox = this.getView().byId("combo");
+                var oItem;
+                var OtemArray = [{ key: 'G', Text: 'GO' },
+                { key: 'N', Text: 'No Go' },
+                { key: 'W', Text: 'Waiting' }];
+                for (var j = 0; j < OtemArray.length; j++) {
+                    oItem = new sap.ui.core.Item();
+                    oItem.setText(OtemArray[j].Text);
+                    oItem.setKey(OtemArray[j].key);
+                    oComboBox.insertItem(oItem);
+                }
+
+            },
+            onSelectStatus: function () {
+                var oControl = this.getView().byId("combo");
+                var sSelectedItem = oControl.getSelectedItem();
+
+                for (var j = 0; j < this.Filters.length; j++) {
+                    if (this.Filters[j].sPath === "Status") {
+                        this.Filters.splice(j, 1);
+                        break; oFilterItem
+                    }
+                }
+                if (sSelectedItem !== null) {
+                    var skey = oControl.getSelectedItem().getKey();
+
+                    var oFilterItem = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, skey);
+
+                    this.Filters.push(oFilterItem);
+
+
+                }
+
+            },
+            onItBusinessServiceValueHelp: function (oController) {
+
+                if (this._valueHelpDialogItBusService) {
+
+                    var aTokens = oController.getSource().getTokens();
+                    var oSelectedItems = this._valueHelpDialogItBusService._oSelectedItems;
+                    this._valueHelpDialogItBusService.destroy();
+                }
+                this._valueHelpDialogItBusService = this._createDialog("comep.comep.view.fragments.ItBusServiceDialog");
+
+                var oColModel = new sap.ui.model.json.JSONModel();
+                oColModel.setData({
+                    cols: [{
+                        label: this.oBundle.getText("ItBusService"),
+                        template: "ItBusService"
+                    }]
+                });
+
+                var oTable = this._valueHelpDialogItBusService.getTable();
+                oTable.setModel(oColModel, "columns");
+                var oInput = this.getView().byId("itBusSevInputId");
+                var oModelRows = new sap.ui.model.json.JSONModel();
+               // var items = this.formatter.getItBusinessService;
+               var items = [{ ItBusService: 'AETOS'},
+                        { ItBusService: 'ATLAS'},
+                        { ItBusService: 'BOARD'},
+                        { ItBusService: 'CALYPSO'},
+                        { ItBusService: 'CODAC'},
+                        { ItBusService: 'CODAF'},
+                        { ItBusService: 'CODSI'},
+                        { ItBusService: 'COLOG'},
+                        { ItBusService: 'COM2MIND'},
+                        { ItBusService: 'COM2WORLD'},
+                        { ItBusService: 'COMARK'},
+                        { ItBusService: 'COR'},
+                        { ItBusService: 'CORH'},
+                        { ItBusService: 'COSPS'},
+                        { ItBusService: 'CRECHE'},
+                        { ItBusService: 'EXPANSION'},
+                        { ItBusService: 'HOTEL'},
+                        { ItBusService: 'JURIDIQUE'},
+                        { ItBusService: 'PIONEER'},
+                        { ItBusService: 'TRAVAUX'}
+                         ];
+                oModelRows.setData({
+                    data: items
+                   
+                });
+                oTable.setModel(oModelRows);
+                        oTable.bindRows("/data");                
+                this._valueHelpDialogItBusService.open();
+
             }
 
         });

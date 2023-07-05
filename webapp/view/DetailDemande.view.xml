@@ -1,53 +1,104 @@
 <mvc:View controllerName="comep.comep.controller.DetailDemande" 
           xmlns:core="sap.ui.core" 
-          
+          xmlns="sap.uxap"
           xmlns:layout="sap.ui.layout"
 	      xmlns:mvc="sap.ui.core.mvc" 
           xmlns:m="sap.m"     
           xmlns:suite="sap.suite.ui.commons"
-          xmlns:f="sap.f" class="sapUiNoContentPadding sapUiSizeCompact" height="100%">
-<f:DynamicPage showFooter="false" id="DetailDemandePage" class="sapUiSizeCompact" >
+           class="sapUiNoContentPadding sapUiSizeCompact" height="100%">
+<!-- <f:DynamicPage showFooter="false" id="DetailDemandePage" class="sapUiSizeCompact" >
 <f:title>
 	<f:DynamicPageTitle id = 'detaildemandedynamicpage' backgroundDesign="Solid">
 		<f:heading>
-			<m:Title id ='detaildemande' text="Detail Demande" wrapping="true" class="sapUiTinyMarginEnd sapUiTinyMarginTop"/>
+			<m:Title id ='detaildemande' text= "{parts:[ {path: 'detailsModel>/DemCode'},{path: 'detailsModel>/DemDescr'}], formatter: '.formatter.getTitle' }" wrapping="true" class="sapUiTinyMarginEnd sapUiTinyMarginTop"/>	
 		</f:heading>
 		<f:actions>
-		
 			<m:Button id="btnClose" icon="sap-icon://decline" press="onNavBack" tooltip=" {i18n>close}" type="Transparent"/>
 		</f:actions>
 	</f:DynamicPageTitle>
-</f:title> 
-</f:DynamicPage>
-<!-- <ObjectPageLayout id="DetailDemandePage" alwaysShowContentHeader="true" class="sapUiSizeCompact" upperCaseAnchorBar="false">
+	</f:title> 
+	<f:header>
+		<f:DynamicPageHeader pinnable="true">
+			<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch">
+			<m:items>
+				 <layout:VerticalLayout class="sapUiSmallMarginEnd">
+					<m:HBox >	
+						<m:ObjectAttribute  text="{path: 'detailsModel>/DemStatut', formatter: '.formatter.getStatusText' }" title= "Statut" />
+					</m:HBox>
+				</layout:VerticalLayout>
+				 <layout:VerticalLayout class="sapUiSmallMarginEnd">
+					<m:HBox >	
+						<m:ObjectAttribute  text="{detailsModel>/DemResponsable}" title= "Responsable" />
+					</m:HBox>
+				</layout:VerticalLayout>
+			</m:items>
+		 </m:FlexBox>
+		</f:DynamicPageHeader>
+	</f:header>
+
+</f:DynamicPage> -->
+
+<ObjectPageLayout   id="DetailDemandePage" 
+					alwaysShowContentHeader="true" 
+					class="sapUiSizeCompact" upperCaseAnchorBar="false">
 		<headerTitle >
 			<ObjectPageHeader id = "DetailDemandeHeader"
-				objectTitle= "Detail Demande "
+				objectTitle= "{parts:[ {path: 'detailsModel>/Code'},{path: 'detailsModel>/Description'}], formatter: '.formatter.getTitle' }"
 				isObjectIconAlwaysVisible="false" 
 				isObjectTitleAlwaysVisible="true" 
 				isObjectSubtitleAlwaysVisible="false" 
 				isActionAreaAlwaysVisible="true"
 				showPlaceholder="false">
-				<actions>
-		            
-					<ObjectPageHeaderActionButton id="declineBtn" icon="sap-icon://decline" press="onNavBack" tooltip="close"/>
+				<actions>  
+					<ObjectPageHeaderActionButton id="declineBtn" icon="sap-icon://decline" press="onNavBack" tooltip=" {i18n>close}" type="Transparent"/>
 				</actions>
 			</ObjectPageHeader>
 		</headerTitle>
-		<headerContent 	>
-		<m:Text id='testid' text="tessst"></m:Text>
+		<headerContent class="sapUiSizeCompact">
+			<m:FlexBox id="FlexBoxID" wrap="Wrap" fitContainer="true" alignItems="Stretch">
+			<m:items>
+				 <layout:HorizontalLayout class="sapUiSmallMarginEnd">
+					<m:VBox >	
+						<m:ObjectAttribute  text="{path: 'detailsModel>/Status', formatter: '.formatter.getStatusText' }" title= "Statut" />
+				        <m:ObjectAttribute  text="{detailsModel>/Responsible}" title= "Responsable" />
+					</m:VBox>
+				</layout:HorizontalLayout >
+				
+			</m:items>
+		 </m:FlexBox>
 		</headerContent>
+	<sections>
+		
 
-		<sections>
-			<ObjectPageSection id="docuSection" title="tesssssssst" titleUppercase="false" class="sapUiSizeCompact">
-				<subSections >
-				<ObjectPageSubSection id="docuSectionSS1" mode="Expanded" titleUppercase="false" visible="false">
-
-				</ObjectPageSubSection>
+			<ObjectPageSection titleUppercase="false" title="List des Ots">
+				<subSections>
+					<ObjectPageSubSection titleUppercase="false">
+						<m:Text text = "text 1"></m:Text>
+					</ObjectPageSubSection>
 				</subSections>
 			</ObjectPageSection>
+
+			<ObjectPageSection>
+				<subSections>
+					<ObjectPageSubSection titleUppercase="false" title="Régles de gestion">
+						<m:Text text = "text 1"></m:Text>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+			<ObjectPageSection titleUppercase="false" title="Documents">
+				<subSections>
+					<ObjectPageSubSection titleUppercase="false">
+						<m:Text text = "text 3"></m:Text>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+
 		</sections>
-		</ObjectPageLayout> -->
+</ObjectPageLayout>
 
 
+
+		
 </mvc:View>

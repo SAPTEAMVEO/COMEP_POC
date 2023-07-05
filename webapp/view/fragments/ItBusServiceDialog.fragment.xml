@@ -1,0 +1,5 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:vhd="sap.ui.comp.valuehelpdialog" xmlns:fb="sap.ui.comp.filterbar">
+	<vhd:ValueHelpDialog id="itBusServValueHelp" supportRangesOnly="false" supportRanges="true" cancel="onCancel" ok="onConfirm"
+		selectionChange="onSelectionChange" key="ItBusService"  title="IT Business Service" tokenDisplayBehaviour=""  
+		class="sapUiSizeCompact"></vhd:ValueHelpDialog>
+</core:FragmentDefinition>

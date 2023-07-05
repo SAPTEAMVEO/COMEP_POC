@@ -1,31 +1,63 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/ui/model/resource/ResourceModel"
+    "sap/ui/model/resource/ResourceModel",
+    "comep/comep/model/formatter"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, ResourceModel) {
+    function (Controller, ResourceModel,  formatter) {
         "use strict";
 
         return Controller.extend("comep.comep.controller.DetailDemande", {
+            formatter: formatter,
             onInit: function () {
-
+                var that = this;
                 var oRouter = this.getOwnerComponent().getRouter();
+                this.oModel = this.getOwnerComponent().getModel("ZCOMEP_POC_SRV");
+
                 oRouter.getRoute("DemandeDetail").attachMatched(this._onObjectMatched, this);
-                // oRouter.getRoute("DemandeDetail").attachPatternMatched(this._onSupplierMatched, this);
+                that = this;
+                var oDetailsModel = new sap.ui.model.json.JSONModel();
+                this.getView().setModel(oDetailsModel, "detailsModel");
+
+
+
+            },
+            createModel: function () {
+                var sObjectPath = this.oModel.createKey("DEMANDESet", {
+                    Code: this.demandeId
+
+                });
+                var oDetailsModel = this.getView().getModel("detailsModel");
+
+
+                this.oModel.read("/" + sObjectPath, {
+                    success: function (oData) {
+                        var test = 'ok';
+                        oDetailsModel.setData(oData);
+
+                        oDetailsModel.updateBindings();
+                    },
+                    error: function (oError) {
+                        test = 'ko';
+                    }
+
+                });
+
 
             },
             _onObjectMatched: function (oEvent) {
-                this.demandeId = oEvent.getParameter("arguments").dem_descr;
+                this.demandeId = oEvent.getParameter("arguments").Code;
+                this.createModel();
             },
 
 
             _onSupplierMatched: function (oEvent) {
-                this._dem_code = oEvent.getParameter("arguments").dem_code || this._dem_code || "0";
+                this.code = oEvent.getParameter("arguments").code || this.code || "0";
 
                 this.getView().bindElement({
-                    path: "/demandeSet" + this._dem_descr
+                    path: "/DEMANDESet" + this.description
                 });
             },
             _onRouteMatched: function (oEvent) {
@@ -35,7 +67,7 @@ sap.ui.define([
 
 
                 oView.bindElement({
-                    path: "/DemandeDetail(" + oArgs.dem_code + ")",
+                    path: "/DemandeDetail(" + oArgs.code + ")",
                     events: {
                         change: this._onBindingChange.bind(this),
                         dataRequested: function (oEvent) {
@@ -49,8 +81,6 @@ sap.ui.define([
             },
 
             _bindView: function (sObjectPath) {
-
-
                 this.getView().bindElement({
                     path: sObjectPath
                 });
@@ -63,8 +93,6 @@ sap.ui.define([
             },
             onNavBack: function (oEvent) {
                 this.getOwnerComponent().getRouter().navTo("RouteDemandeList", {});
-
-
             }
 
         });

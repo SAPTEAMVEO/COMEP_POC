@@ -24,18 +24,22 @@
 	<f:content>
 		<fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search="onSearch" filterChange="onFilterChange" afterVariantLoad="onAfterVariantLoad">
 			<fb:filterGroupItems>
-				<fb:FilterGroupItem  id = "FilterDemande" name="Demande" label="Demande"  groupName="Group1" visibleInFilterBar="true">
+				<fb:FilterGroupItem  id = "FilterDemande" name="Demande" label="Project / Evolution"  groupName="Group1" visibleInFilterBar="true">
 					<fb:control>
 						<m:MultiInput id= "demandeInputId" valueHelpRequest="onDemandeValueHelp" tokenUpdate="onChange"></m:MultiInput>
 					</fb:control>
 			    </fb:FilterGroupItem>
 
-				<fb:FilterGroupItem  id = "Filtercombo" name="Statut" label="Statut" groupName="Group1" visibleInFilterBar="true">
+				<fb:FilterGroupItem  id = "Filtercombo" name="Statut" label="Status" groupName="Group1" visibleInFilterBar="true">
 				    <fb:control>
-						<m:ComboBox id= "combo"></m:ComboBox>
+						<m:ComboBox id= "combo" selectionChange="onSelectStatus"></m:ComboBox>
 					</fb:control>
 				</fb:FilterGroupItem>
-				
+				<fb:FilterGroupItem  id = "FilterItBusService" name="IT Business  Service" label="IT Business  Service"  groupName="Group1" visibleInFilterBar="true">
+					<fb:control>
+						<m:MultiInput id= "itBusSevInputId" valueHelpRequest="onItBusinessServiceValueHelp" tokenUpdate="onChange"></m:MultiInput>
+					</fb:control>
+			    </fb:FilterGroupItem>
 			</fb:filterGroupItems>
 		</fb:FilterBar>
 	</f:content>
@@ -43,7 +47,7 @@
 </f:header>
         <f:content >
         <m:Table id="idTable" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" growing="true" growingThreshold="10" growingScrollToLoad="true"
-					busyIndicatorDelay="30" width="100%" items="{path:'/DemandeSet'}" updateFinished="onUpdateFinished"
+					busyIndicatorDelay="30" width="100%" items="{path:'/DEMANDESet'}" updateFinished="onUpdateFinished"
 				    class="sapUiSizeCompact stickyToolbar sapUiNoContentPadding">
 					<m:columns>
 						<m:Column id="demandeID" minScreenWidth="" >
@@ -51,6 +55,15 @@
 						</m:Column>
                         <m:Column id="demDescr" minScreenWidth="" >                         
 							<m:Label id ='description' text="{i18n>description}" tooltip="{i18n>description}"/>                      
+						</m:Column>
+						<m:Column id="demBusServID" minScreenWidth="" >                         
+							<m:Label id ='demBusServ' text="{i18n>ItBusService}" tooltip="{i18n>ItBusService}"/>                      
+						</m:Column>
+						<m:Column id="solutionID" minScreenWidth="" >                         
+							<m:Label id ='solution' text="{i18n>solution}" tooltip="{i18n>solution}"/>                      
+						</m:Column>
+						<m:Column id="natureID" minScreenWidth="" >                         
+							<m:Label id ='nature' text="{i18n>nature}" tooltip="{i18n>nature}"/>                      
 						</m:Column>
                        <m:Column id="statutID" minScreenWidth="" >                         
 							<m:Label id ='statut' text="{i18n>statut}" tooltip="{i18n>statut}"/>                      
@@ -65,12 +78,16 @@
 					<m:items  >
 						<m:ColumnListItem id = "detaildemande" type="Navigation" press="onDemandePress" selected="true" >
 						<m:cells>
-                            <m:ObjectIdentifier id = 'iden' title="{DemCode}"  />
-                            <m:Text  id='dem_descr' text="{DemDescr}"  />
+                            <m:ObjectIdentifier id = 'iden' title="{Code}"  />
+                            <m:Text  id='dem_descr' text="{Description}" width="100%"  />
+							<m:Text  id='dem_itbusserv' text="{ItBusService}" width="100%"  />
+							<m:Text  id='dem_solution' text="{Solution}" width="100%"  />
+							<m:Text  id='dem_nature' text="{Nature}" width="100%"  />
                             <!-- <m:Text  id='dem_code' text="{DemCode}"  /> -->
-					        <m:Text  id='dem_statut'  text="{DemStatut}"/>  
-							<m:Text  id='dem_date_creation' text="{path: 'DemDateCrea' , formatter: '.formatter.getDate'}"  />
-							<m:Text  id='dem_responsable' text="{DemResponsable}" />             
+					        <m:Text  id='dem_statut' text="{path: 'Status' , formatter: '.formatter.getStatusText'}" width="30%" textAlign="Center"/>  
+							
+							<m:Text  id='dem_date_creation' text="{path: 'CreationDate' , formatter: '.formatter.getDate'}" width="50%" />
+							<m:Text  id='dem_responsable' text="{Responsible}" width="60%" />             
 					 	</m:cells>	
 					 	</m:ColumnListItem>
 					</m:items>
